@@ -91,4 +91,106 @@ g++ -o gomoku main.cpp auto.cpp undo.cpp rank.cpp
 
 ## 许可
 
-本项目遵循 MIT 许可协议。
+本项目遵循 MIT 许可协议
+
+以下是英文版 README，保持了与你原文相同的结构和风格，适合用于 GitHub 仓库。
+
+---
+
+# Gomoku (Five in a Row)
+
+A terminal-based Gomoku game supporting two-player mode, human-vs-AI mode, undo, leaderboard, and game result recording.  
+This project is a self-learning practice work implemented in C/C++.
+
+## Features
+
+- **Two-Player Mode**: Two players take turns, perfect for playing with friends  
+- **Human-vs-AI Mode**: Choose to play as first player (X) or second player (O); the AI uses a simple evaluation function for decision-making  
+- **Undo Function**: Human players can enter `0 0` to undo the last move (human turn only)  
+- **Leaderboard System**: Automatically updates player scores after each game (winner +2, draw +1 each, loser +0), saved in `rankList.txt`  
+- **Game Result Archive**: Game results (winner / draw) and timestamps are saved in `result.txt`  
+- **Adjustable Board Size**: Supports board sizes from 5×5 to 100×100  
+- **Intuitive Console Interface**: Uses `X` (Player 1) and `O` (Player 2) to represent pieces
+
+## Build & Run
+
+### Requirements
+- GCC / Clang or any C++11-compatible compiler  
+- OS: Windows / Linux / macOS (terminal must support Chinese display)
+
+### Build Instructions
+Compile all `.cpp` files together. Example using `g++`:
+
+```bash
+g++ -o gomoku main.cpp auto.cpp undo.cpp rank.cpp
+```
+
+### Run
+
+```bash
+./gomoku
+```
+
+### Notes
+- Make sure `rankList.txt` and `result.txt` are in the same directory as the executable — the program will create/read them automatically.
+- It is recommended to keep the board size ≤ 30×30, otherwise the terminal display may behave abnormally (e.g., unexpected line breaks).
+
+## Usage Instructions
+
+1. After launching, select game mode (1 - Two-Player, 2 - Human-vs-AI).  
+2. If Human-vs-AI mode is selected, choose which side to play (1 - First player (X), 2 - Second player (O)).  
+3. Enter usernames (both players in two-player mode; only human player in AI mode, the other defaults to "Computer").  
+4. Set board size (5–100).  
+5. Start the game:
+   - Human players input **row column** (1~board size).  
+   - Enter `0 0` to undo (human turn only).  
+   - Enter `-1 -1` to force quit the game.  
+6. After the game ends, the winner / draw is displayed, results are automatically saved, and the leaderboard is updated.  
+7. Post-game options: `a` to exit, `b` to start a new game, `c` to view the leaderboard.
+
+### AI Explanation
+
+The computer uses a simple **position scoring** strategy:
+- For each empty cell, calculate offensive score (value of its own pieces in a line) and defensive score (opponent's piece-line value × 0.8).  
+- Select the cell with the highest total score. If all scores are 0 (empty board), prioritize the center.  
+- Scoring is based on consecutive pieces and whether the ends are blocked:
+
+| Pattern          | Score   |
+|-----------------|---------|
+| Five in a row   | 100,000 |
+| Open four       | 10,000  |
+| Blocked four    | 1,000   |
+| Open three      | 100     |
+| Blocked three   | 10      |
+| Open two        | 1       |
+
+This AI is relatively simple — suitable for beginner-level play.
+
+## Project Structure
+
+```
+├── main.cpp          # Main program entry, game flow control
+├── auto.cpp / auto.h # AI scoring and auto-move logic
+├── undo.cpp / undo.h # Undo functionality (move history stack)
+├── rank.cpp / rank.h # Leaderboard reading/writing and updates
+├── rankList.txt      # Stores player scores (auto-generated/updated)
+├── result.txt        # Records each game result and timestamp
+└── README.md         # This file
+```
+
+## Core Implementation Highlights
+
+- **Win Detection**: After each move, checks horizontally, vertically, and along both diagonals for ≥5 consecutive same-color pieces.  
+- **Undo Implementation**: Uses a `MoveHistory` structure to store each move (row, col, player); `undoMove` pops the stack and restores the board.  
+- **Global Board**: `board[100][100]` declared with `extern` for access across multiple modules.
+
+## Possible Future Improvements
+
+- Improve AI algorithm (e.g., alpha-beta pruning or Monte Carlo methods)  
+- Add save/load game functionality  
+- Implement a graphical interface (Qt or console graphics library)  
+- Fix edge-case state bugs when undoing moves in Human-vs-AI mode
+
+## License
+
+This project is licensed under the MIT License.
