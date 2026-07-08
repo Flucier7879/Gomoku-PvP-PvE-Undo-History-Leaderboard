@@ -1,15 +1,15 @@
 {
     "tasks": [
         {
-            "type": "shell",
-            "label": "C/C++: g++.exe 生成活动文件",
-            "command": "C:\\Program Files\\x86_64-8.1.0-release-posix-seh-rt_v6-rev0\\mingw64\\bin\\g++.exe",
+            "type": "cppbuild",
+            "label": "C/C++: gcc.exe 构建项目（多文件）",
+            "command": "C:\\Program Files\\x86_64-8.1.0-release-posix-seh-rt_v6-rev0\\mingw64\\bin\\gcc.exe",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${fileDirname}/*.cpp",
+                "${fileDirname}\\*.c",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+                "${fileDirname}\\main.exe"
             ],
             "options": {
                 "cwd": "${fileDirname}"
@@ -21,7 +21,7 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "detail": "调试器生成的任务。"
+            "detail": "编译所有 .c 文件并链接为 main.exe"
         }
     ],
     "version": "2.0.0"

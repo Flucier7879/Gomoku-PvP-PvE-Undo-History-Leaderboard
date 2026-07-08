@@ -93,6 +93,7 @@ g++ -o gomoku main.cpp auto.cpp undo.cpp rank.cpp
 
 本项目遵循 MIT 许可协议
 
+以下是英文版 README，保持了与你原文相同的结构和风格，适合用于 GitHub 仓库。
 
 ---
 

@@ -92,6 +92,7 @@ void clearbuffer(void)
 
 int main()
 {
+    system("chcp 65001 > nul");  // 设置控制台编码为 UTF-8，避免中文乱码
     while (1) // 支持多局循环
     {
         int n;
