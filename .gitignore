@@ -1,0 +1,8 @@
+# 编译产物
+*.exe
+*.o
+*.obj
+
+# 游戏数据文件（本地生成，不提交）
+result.txt
+rankList.txt
